@@ -197,7 +197,7 @@
         }
       };
 
-      return fetch(`https://api.apilayer.com/email_verification/check?email=${email}`, requestOptions)
+      return fetch(`https://api.apilayer.com/email_verification/check?email=${Email}`, requestOptions)
         .then(response => response.json())
         .then(result => result.format_valid && result.smtp_check)
         .catch(error => {
