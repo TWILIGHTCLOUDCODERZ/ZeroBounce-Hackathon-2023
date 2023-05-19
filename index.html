@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>MAIL VALIDATION</title>
+
+  <!-- slider stylesheet -->
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              MAIL VALIDATION
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Home</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="box">
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="detail-box">
+                      <div>
+                        <h1>
+                          MAIL VALIDATION
+                        </h1>
+                        <h2>
+                         Built for ZeroBounce Hackathon 2023
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="img-box">
+                      <img src="images/slider-img.png" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+
+
+    </div>
+  <!-- how section -->
+  <section class="how_section layout_padding">
+    <div class="heading_container">
+      <h2>
+        METHODOLOGY
+      </h2>
+    </div>
+<br>
+      
+<style>
+    body {
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .validation-box {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .validation-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .validation-box form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .validation-box label {
+      margin-bottom: 5px;
+    }
+
+    .validation-box input[type="text"] {
+      width: 300px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .validation-box button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .validation-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .validation-box button i {
+      margin-right: 5px;
+    }
+
+    .validation-box div[id$="ValidationResult"] {
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    const validDomains = ['yahoo.com', 'gmail.com', 'outlook.com'];
+
+    function validateEmailSyntax(email) {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailPattern.test(email);
+    }
+
+    function validateEmailDomain(email) {
+      const emailParts = email.split('@');
+      if (emailParts.length !== 2) {
+        return false;
+      }
+
+      const domain = emailParts[1].toLowerCase();
+      return validDomains.includes(domain);
+    }
+
+    function validateEmailMXRecord(email) {
+      // Replace YOUR_API_KEY with your actual API key
+      const apiKey = 'YOUR_API_KEY';
+
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      };
+
+      return fetch(`https://api.apilayer.com/email_verification/check?email=${email}`, requestOptions)
+        .then(response => response.json())
+        .then(result => result.format_valid && result.smtp_check)
+        .catch(error => {
+          console.log('Error:', error);
+          return false;
+        });
+    }
+
+    function validateEmailSyntaxSingle() {
+      const emailInput = document.getElementById('singleEmailSyntax');
+      const email = emailInput.value.trim();
+      if (email === '') {
+        alert('Please enter an email address.');
+        return;
+      }
+
+      const syntaxValidationResult = validateEmailSyntax(email);
+      const validationResultContainer = document.getElementById('singleEmailSyntaxValidationResult');
+      validationResultContainer.innerHTML = syntaxValidationResult ? 'Valid syntax' : 'Invalid syntax';
+    }
+
+    function validateEmailDomainSingle() {
+      const emailInput = document.getElementById('singleEmailDomain');
+      const email = emailInput.value.trim();
+      if (email === '') {
+        alert('Please enter an email address.');
+        return;
+      }
+
+      const domainValidationResult = validateEmailDomain(email);
+      const validationResultContainer = document.getElementById('singleEmailDomainValidationResult');
+      validationResultContainer.innerHTML = domainValidationResult ? 'Valid domain' : 'Invalid domain';
+    }
+
+    function validateEmailMXRecordSingle() {
+      const emailInput = document.getElementById('singleEmailMXRecord');
+      const email = emailInput.value.trim();
+      if (email === '') {
+        alert('Please enter an email address.');
+        return;
+      }
+
+      const mxRecordValidationResultPromise = validateEmailMXRecord(email);
+      const validationResultContainer = document.getElementById('singleEmailMXRecordValidationResult');
+      validationResultContainer.innerHTML = 'Validating...';
+
+      mxRecordValidationResultPromise.then(mxRecordValidationResult => {
+        validationResultContainer.innerHTML = mxRecordValidationResult ? 'Valid MX record' : 'Invalid MX record';
+      });
+    }
+
+    function validateEmailsBulk() {
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert('Please select a CSV file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const contents = e.target.result;
+        const emailList = parseCSV(contents);
+        validateEmails(emailList);
+      };
+      reader.readAsText(file);
+    }
+
+    function parseCSV(csvData) {
+      const lines = csvData.split('\n');
+      const emailList = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const email = lines[i].trim();
+        if (email) {
+          emailList.push(email);
+        }
+      }
+
+      return emailList;
+    }
+
+    function validateEmails(emailList) {
+      const validatedEmails = [];
+      validatedEmails.push('Email,Syntax Validation,Domain Validation,MX Record Validation'); // Header row for CSV
+
+      const emailPromises = emailList.map(function (email) {
+        const formattedEmail = email.trim();
+        const syntaxValidationResult = validateEmailSyntax(formattedEmail);
+        const domainValidationResult = validateEmailDomain(formattedEmail);
+        const mxRecordValidationResultPromise = validateEmailMXRecord(formattedEmail);
+
+        return mxRecordValidationResultPromise.then(mxRecordValidationResult => {
+          validatedEmails.push(`${formattedEmail},${syntaxValidationResult},${domainValidationResult},${mxRecordValidationResult}`);
+        });
+      });
+
+      Promise.all(emailPromises).then(function () {
+  const csvContent = validatedEmails.join('\n'); // Join validated emails with line breaks
+
+  // Create a download link for the validated CSV file
+  const downloadLink = document.createElement("a");
+  downloadLink.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csvContent);
+  downloadLink.download = "validation_results.csv";
+  downloadLink.innerHTML = "Download Validation Results";
+
+  // Get the container element where the download link should be appended
+  const container = document.getElementById("bulkValidationContainer");
+
+  // Insert the download link after the container's last child
+  container.appendChild(downloadLink);
+});
+
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="validation-box">
+          <h2>Email Syntax Validation <i class="fas fa-at"></i></h2>
+          <form onsubmit="event.preventDefault();">
+            <label for="singleEmailSyntax">Email:</label>
+            <input type="text" id="singleEmailSyntax" name="singleEmailSyntax">
+            <button type="button" onclick="validateEmailSyntaxSingle()"><i class="fas fa-check"></i> Validate</button>
+            <div id="singleEmailSyntaxValidationResult"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="validation-box">
+          <h2>Email Domain Validation <i class="fas fa-globe"></i></h2>
+          <form onsubmit="event.preventDefault();">
+            <label for="singleEmailDomain">Email:</label>
+            <input type="text" id="singleEmailDomain" name="singleEmailDomain">
+            <button type="button" onclick="validateEmailDomainSingle()"><i class="fas fa-check"></i> Validate</button>
+            <div id="singleEmailDomainValidationResult"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="validation-box">
+          <h2>Email MX Record Validation <i class="fas fa-server"></i></h2>
+          <form onsubmit="event.preventDefault();">
+            <label for="singleEmailMXRecord">Email:</label>
+            <input type="text" id="singleEmailMXRecord" name="singleEmailMXRecord">
+            <button type="button" onclick="validateEmailMXRecordSingle()"><i class="fas fa-check"></i> Validate</button>
+            <div id="singleEmailMXRecordValidationResult"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      <div class="validation-box" id="bulkValidationContainer">
+          <h2>Bulk Email Validation <i class="fas fa-upload"></i></h2>
+          <form>
+            <label for="csvFile">Upload CSV File:</label>
+            <input type="file" id="csvFile" name="csvFile" accept=".csv">
+            <br>
+            <button type="button" onclick="validateEmailsBulk()"><i class="fas fa-check"></i> Validate</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end how section -->
+  <!-- owl carousel script --->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+
+  <!-- end owl carousel script -->
+</body>
+
+</html>
